@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
-const Species = loadable(() => import('pages/species'))
-const SpeciesDetail = loadable(() => import('pages/speciesDetail'))
+const Species = loadable(() => import('pages/Species'))
+const SpeciesDetail = loadable(() => import('pages/SpeciesDetail'))
 
 const Routes = () => {
   return (

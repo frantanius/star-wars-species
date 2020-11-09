@@ -1,11 +1,7 @@
 import Routes from 'routes/index'
 
 const App = () => {
-  return (
-    <div className="app">
-      <Routes />
-    </div>
-  )
+  return <Routes />
 }
 
 export default App
