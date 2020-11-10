@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="md">{children}</Container>
+      <Container maxWidth="lg">{children}</Container>
     </>
   )
 }
@@ -13,5 +13,5 @@ const Layout = ({ children }) => {
 export default Layout
 
 Layout.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
 }

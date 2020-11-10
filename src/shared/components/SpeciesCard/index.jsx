@@ -1,26 +1,40 @@
-import { Grid, Card, CardContent, Typography } from '@material-ui/core'
+/* eslint-disable no-undef */
+import PropTypes from 'prop-types'
+import {
+  Grid,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography,
+} from '@material-ui/core'
+import Styles from './styles.module.scss'
 
-const SpeciesCard = () => {
-  return (
-    <Grid item xs={4}>
-      <Card>
-        <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Word of the Day
+const SpeciesCard = ({ name, classification }) => (
+  <Grid item xs={3}>
+    <Card variant="outlined" className={Styles.card}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          alt={classification}
+          height="400"
+          image={`${process.env.PUBLIC_URL}/img/${name}.jpg`}
+          title={name}
+        />
+        <CardContent className={Styles.cardContent}>
+          <Typography gutterBottom component="h6">
+            {name}
           </Typography>
-          <Typography variant="h5" component="h2">
-            be lent
-          </Typography>
-          <Typography color="textSecondary">adjective</Typography>
-          <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-          </Typography>
+          <Typography component="p">Classification {classification}</Typography>
         </CardContent>
-      </Card>
-    </Grid>
-  )
-}
+      </CardActionArea>
+    </Card>
+  </Grid>
+)
 
 export default SpeciesCard
+
+SpeciesCard.propTypes = {
+  name: PropTypes.string.isRequired,
+  classification: PropTypes.string,
+}
