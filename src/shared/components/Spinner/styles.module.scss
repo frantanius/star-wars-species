@@ -1,0 +1,18 @@
+.spinnerContainer {
+    position: relative;
+}
+
+.spinnerBottom {
+    color: grey;
+}
+
+.spinnerTop {
+    color: '#1a90ff';
+    animation-duration: 550ms;
+    position: 'absolute';
+    left: 0l
+}
+
+.spinnerCircle {
+    stroke-linecap: 'round';
+}
