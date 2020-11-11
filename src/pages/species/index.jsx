@@ -51,7 +51,7 @@ const Species = () => {
 
     dispatch({ type: 'SPECIES_REQUEST' })
     axios
-      .get(`https://swapi.dev/api/species/?page=${nextPage}`)
+      .get(`${process.env.REACT_APP_API_URL}?page=${nextPage}`)
       .then(({ data: { results } }) => {
         dispatch({ type: 'SPECIES_SUCCESS', payload: results })
       })
@@ -60,8 +60,6 @@ const Species = () => {
         return e
       })
   }, [isError, nextPage, dispatch])
-
-  // console.log('nextPage', nextPage)
 
   return (
     <>
