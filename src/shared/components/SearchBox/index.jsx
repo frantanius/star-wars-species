@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { TextField, CircularProgress, Grid } from '@material-ui/core'
@@ -47,13 +47,7 @@ const SearchBox = () => {
   }, [open])
 
   return (
-    <Grid
-      container
-      className={Styles.searchBox}
-      direction="row"
-      justify="center"
-      alignItems="center"
-    >
+    <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={5}>
         <Autocomplete
           open={open}
@@ -66,7 +60,8 @@ const SearchBox = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Search species name..."
+              className={Styles.searchBox}
+              placeholder="Search species name..."
               variant="outlined"
               InputProps={{
                 ...params.InputProps,

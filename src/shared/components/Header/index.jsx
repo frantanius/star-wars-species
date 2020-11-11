@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types'
+import logo from 'shared/assets/img/logo.png'
 import Styles from './styles.module.scss'
 
-const Header = ({ title, children }) => {
+const Header = ({ children }) => {
   return (
     <div className={Styles.headerContainer}>
-      <h1>{title}</h1>
+      <img src={logo} alt="logo" />
       {children}
     </div>
   )
 }
 
-export default Header
-
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  // title: PropTypes.string,
   children: PropTypes.element,
 }
+
+export default Header

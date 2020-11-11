@@ -1,11 +1,11 @@
-import React, { useReducer, useEffect, useCallback, useRef } from 'react'
+import React, { useReducer, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Header from 'shared/components/Header'
 import Layout from 'shared/components/Layout'
 import SearchBox from 'shared/components/SearchBox'
 import SpeciesCard from 'shared/components/SpeciesCard'
 import Grid from '@material-ui/core/Grid'
-import ScrollToTop from 'shared/components/ScrollToTop'
+import BackToTop from 'shared/components/BackToTop'
 import Spinner from 'shared/components/Spinner'
 import useInfiniteScroll from 'shared/customHook/useInfiniteScroll'
 
@@ -46,11 +46,12 @@ const Species = () => {
   const loadMoreRef = useRef(null)
   const nextPage = useInfiniteScroll(loadMoreRef)
 
-  const requestSpecies = useCallback((page, isError) => {
-    if (page === 0 || isError) return
+  useEffect(() => {
+    if (nextPage === 0 || isError) return
+
     dispatch({ type: 'SPECIES_REQUEST' })
     axios
-      .get(`https://swapi.dev/api/species/?page=${page}`)
+      .get(`https://swapi.dev/api/species/?page=${nextPage}`)
       .then(({ data: { results } }) => {
         dispatch({ type: 'SPECIES_SUCCESS', payload: results })
       })
@@ -58,17 +59,16 @@ const Species = () => {
         dispatch({ type: 'SPECIES_FAILURE' })
         return e
       })
-  }, [])
+  }, [isError, nextPage, dispatch])
 
-  useEffect(() => {
-    requestSpecies(nextPage, isError)
-  }, [requestSpecies, nextPage, isError])
-  console.log('nextPage', nextPage)
+  // console.log('nextPage', nextPage)
+
   return (
     <>
       <Header title="STAR WARS">
         <SearchBox />
       </Header>
+      <div id="back-to-top-anchor" />
       <Layout>
         <Grid container spacing={3}>
           {payload.map((item, key) => (
@@ -77,7 +77,7 @@ const Species = () => {
         </Grid>
         {isLoading && <Spinner />}
       </Layout>
-      <ScrollToTop />
+      <BackToTop />
       <div ref={loadMoreRef} />
     </>
   )
