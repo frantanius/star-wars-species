@@ -1,86 +1,47 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import { TextField, CircularProgress, Grid } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { search_types } from 'shared/constants'
+import { Grid, InputBase } from '@material-ui/core'
 import Styles from './styles.module.scss'
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay)
-  })
-}
-
-const SearchBox = () => {
-  const [open, setOpen] = useState(false)
-  const [options, setOptions] = useState([])
-  const isLoading = open && options.length === 0
+const SearchBox = ({ dispatch }) => {
+  const [query, setQuery] = useState('')
 
   useEffect(() => {
-    let active = true
-
-    if (!isLoading) {
-      return undefined
-    }
-
+    if (!query) return
     ;(async () => {
-      const response = await axios(
-        process.env.REACT_APP_API_URL,
-        // 'https://country.register.gov.uk/records.json?page-size=5000',
-      )
-
-      await sleep(1e3) // For demo purposes.
-      const { data } = response
-
-      if (active) {
-        setOptions(Object.keys(data).map((key) => data[key].item[0]))
+      dispatch({ type: search_types.SEARCH_REQUEST })
+      try {
+        const {
+          data: { results },
+        } = await axios.get(`${process.env.REACT_APP_API_URL}?search=${query}`)
+        dispatch({ type: search_types.SEARCH_SUCCESS, searchResults: results })
+      } catch (error) {
+        dispatch({ type: search_types.SEARCH_FAILURE })
+        return error
       }
     })()
-
-    return () => {
-      active = false
-    }
-  }, [isLoading])
-
-  useEffect(() => {
-    if (!open) {
-      setOptions([])
-    }
-  }, [open])
+  }, [query, dispatch])
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item xs={5}>
-        <Autocomplete
-          open={open}
-          onOpen={() => setOpen(true)}
-          onClose={() => setOpen(false)}
-          getOptionSelected={(option, value) => option.name === value.name}
-          getOptionLabel={(option) => option.name}
-          options={options}
-          loading={isLoading}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              className={Styles.searchBox}
-              placeholder="Search species name..."
-              variant="outlined"
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {isLoading && (
-                      <CircularProgress color="inherit" size={20} />
-                    )}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-            />
-          )}
+        <InputBase
+          className={Styles.searchBox}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyUp={(e) => setQuery(e.target.value)}
+          type="text"
+          placeholder="Search species..."
         />
       </Grid>
     </Grid>
   )
+}
+
+SearchBox.propTypes = {
+  dispatch: PropTypes.func.isRequired,
 }
 
 export default SearchBox

@@ -1,4 +1,7 @@
-import React, { useReducer, useEffect, useRef } from 'react'
+import React, { useEffect, useReducer, useRef } from 'react'
+import { INIT_STATE_SPECIES, speciesReducer } from 'shared/reducers/species'
+import { INIT_STATE_SEARCH, searchReducer } from 'shared/reducers/search'
+import { species_types } from 'shared/constants'
 import axios from 'axios'
 import Header from 'shared/components/Header'
 import Layout from 'shared/components/Layout'
@@ -9,71 +12,49 @@ import BackToTop from 'shared/components/BackToTop'
 import Spinner from 'shared/components/Spinner'
 import useInfiniteScroll from 'shared/customHook/useInfiniteScroll'
 
-const INIT_STATE = {
-  isLoading: false,
-  isError: false,
-  payload: [],
-}
-
-const speciesReducer = (state, { type, payload }) => {
-  switch (type) {
-    case 'SPECIES_REQUEST':
-      return {
-        ...state,
-        isLoading: true,
-      }
-    case 'SPECIES_SUCCESS':
-      return {
-        ...state,
-        isLoading: false,
-        payload: state.payload.concat(payload),
-      }
-    case 'SPECIES_FAILURE':
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-      }
-    default:
-      return state
-  }
-}
-
 const Species = () => {
-  const [state, dispatch] = useReducer(speciesReducer, INIT_STATE)
-  const { isLoading, isError, payload } = state
-
   const loadMoreRef = useRef(null)
   const nextPage = useInfiniteScroll(loadMoreRef)
+  const [state, dispatch] = useReducer(speciesReducer, INIT_STATE_SPECIES)
+  const [stateSearch, dispatchSearch] = useReducer(
+    searchReducer,
+    INIT_STATE_SEARCH,
+  )
+  const { isLoading, isError, payload } = state
+  const { isLoadingSearch, searchResults } = stateSearch
 
   useEffect(() => {
     if (nextPage === 0 || isError) return
-
-    dispatch({ type: 'SPECIES_REQUEST' })
-    axios
-      .get(`${process.env.REACT_APP_API_URL}?page=${nextPage}`)
-      .then(({ data: { results } }) => {
-        dispatch({ type: 'SPECIES_SUCCESS', payload: results })
-      })
-      .catch((e) => {
-        dispatch({ type: 'SPECIES_FAILURE' })
-        return e
-      })
+    ;(async () => {
+      dispatch({ type: species_types.SPECIES_REQUEST })
+      try {
+        const {
+          data: { results },
+        } = await axios.get(`${process.env.REACT_APP_API_URL}?page=${nextPage}`)
+        dispatch({ type: species_types.SPECIES_SUCCESS, payload: results })
+      } catch (error) {
+        dispatch({ type: species_types.SPECIES_FAILURE })
+        return error
+      }
+    })()
   }, [isError, nextPage, dispatch])
+
+  const data = searchResults.length ? searchResults : payload
+  const isDataLoading = isLoadingSearch ? isLoadingSearch : isLoading
 
   return (
     <>
       <Header title="STAR WARS">
-        <SearchBox />
+        <SearchBox dispatch={dispatchSearch} />
       </Header>
       <div id="back-to-top-anchor" />
       <Layout>
         <Grid container spacing={3}>
-          {payload.map((item, key) => (
+          {data.map((item, key) => (
             <SpeciesCard key={key} {...item} />
           ))}
         </Grid>
-        {isLoading && <Spinner />}
+        {isDataLoading && <Spinner />}
       </Layout>
       <BackToTop />
       <div ref={loadMoreRef} />
