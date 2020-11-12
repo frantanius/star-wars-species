@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Fab, Zoom, useScrollTrigger } from '@material-ui/core'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import Styles from './styles.module.scss'
+import styles from './styles.module.scss'
 
 const BackToTop = ({ window }) => {
   const trigger = useScrollTrigger({
@@ -25,9 +25,13 @@ const BackToTop = ({ window }) => {
       <div
         onClick={handleClick}
         role="presentation"
-        className={Styles.scrollToTop}
+        className={styles.scrollToTop}
       >
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
+        <Fab
+          className={styles.scrollToTopIcon}
+          size="small"
+          aria-label="scroll back to top"
+        >
           <KeyboardArrowUpIcon />
         </Fab>
       </div>
