@@ -1,16 +1,18 @@
+import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { findNWord } from 'shared/utils'
+// Material UI component
 import {
   GridList,
   GridListTile,
   List,
   ListItem,
   ListItemText,
-  Typography,
 } from '@material-ui/core'
 import { MovieCreation, RecentActors, Info } from '@material-ui/icons'
-import axios from 'axios'
+// Component
+import Title from 'shared/components/Title'
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'
 import ContentRaised from 'shared/components/ContentRaised'
@@ -23,6 +25,7 @@ import Footer from 'shared/components/Footer'
 const SpeciesDetail = () => {
   const { speciesId } = useParams()
   const [species, setSpecies] = useState({})
+  const [isLoading, setLoading] = useState(false)
   const {
     name,
     average_height,
@@ -41,12 +44,15 @@ const SpeciesDetail = () => {
 
   useEffect(() => {
     ;(async () => {
+      setLoading(true)
       try {
         const { data } = await axios.get(
           `${process.env.REACT_APP_API_URL}${speciesId}`,
         )
         setSpecies(data)
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         return error
       }
     })()
@@ -63,14 +69,13 @@ const SpeciesDetail = () => {
                 src={`${process.env.PUBLIC_URL}/img/species/${imgId}.jpg`}
                 type="rounded"
               />
-              <Typography
-                variant="h3"
-                component="h4"
+              <Title
+                name={name}
+                isLoading={isLoading}
+                marginTop={-3}
+                marginBottom={2}
                 align="center"
-                style={{ marginTop: '-4rem', marginBottom: '4rem' }}
-              >
-                {name}
-              </Typography>
+              />
               <Tabs
                 alignCenter
                 color="warning"
@@ -80,34 +85,6 @@ const SpeciesDetail = () => {
                     tabIcon: Info,
                     tabContent: (
                       <GridContainer justify="center">
-                        <GridItem xs={12} sm={12} md={4}>
-                          <List>
-                            <ListItem>
-                              <ListItemText
-                                primary="Average height"
-                                secondary={average_height}
-                              />
-                            </ListItem>
-                            <ListItem>
-                              <ListItemText
-                                primary="Average lifespan"
-                                secondary={average_lifespan}
-                              />
-                            </ListItem>
-                            <ListItem>
-                              <ListItemText
-                                primary="Classification"
-                                secondary={classification}
-                              />
-                            </ListItem>
-                            <ListItem>
-                              <ListItemText
-                                primary="Designation"
-                                secondary={designation}
-                              />
-                            </ListItem>
-                          </List>
-                        </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
                           <List>
                             <ListItem>
@@ -132,6 +109,34 @@ const SpeciesDetail = () => {
                               <ListItemText
                                 primary="Language"
                                 secondary={language}
+                              />
+                            </ListItem>
+                          </List>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <List>
+                            <ListItem>
+                              <ListItemText
+                                primary="Average height"
+                                secondary={average_height}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText
+                                primary="Average lifespan"
+                                secondary={average_lifespan}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText
+                                primary="Classification"
+                                secondary={classification}
+                              />
+                            </ListItem>
+                            <ListItem>
+                              <ListItemText
+                                primary="Designation"
+                                secondary={designation}
                               />
                             </ListItem>
                           </List>

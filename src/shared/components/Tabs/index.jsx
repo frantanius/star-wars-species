@@ -86,7 +86,7 @@ const TabsComponent = (props) => {
 }
 
 TabsComponent.defaultProps = {
-  active: 0,
+  active: 1,
   color: 'primary',
 }
 
