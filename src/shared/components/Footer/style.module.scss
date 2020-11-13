@@ -1,0 +1,30 @@
+.footer {
+    padding: 0.9375rem 0;
+    text-align: center;
+    display: flex;
+    z-index: 2;
+    position: relative;
+
+    a {
+        color: #ff9800;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    &:hover,
+    &:focus {
+        color: #FFFFFF;
+    }
+}
+
+.typography {
+    text-transform: unset !important;
+    font-weight: 200 !important;
+}
+
+.icon {
+    width: 18px !important;
+    height: 18px !important;
+    position: relative;
+    top: 4px;
+}

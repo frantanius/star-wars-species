@@ -1,13 +1,31 @@
-.headerContainer {
-    background-color: #020e18;
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+.header {
+    background-image: url('../../../shared/assets/img/background.jpg');
+    height: 380px;
+    max-height: 1000px;
+    overflow: hidden;
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    margin: 0;
+    padding: 1rem 0 0 0;
+    border: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
 
-    h1 {
-        font-size: 4em;
-        color: #ffffff;
-        padding-bottom: 2rem;
+    &:before {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    
+    &:after,
+    &:before {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: block;
+        left: 0;
+        top: 0;
+        content: '';
     }
 }

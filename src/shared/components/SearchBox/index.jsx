@@ -16,7 +16,15 @@ const SearchBox = ({ dispatch }) => {
         const {
           data: { results },
         } = await axios.get(`${process.env.REACT_APP_API_URL}?search=${query}`)
-        dispatch({ type: search_types.SEARCH_SUCCESS, searchResults: results })
+
+        if (!results.length) {
+          dispatch({ type: search_types.SEARCH_FAILURE })
+        } else {
+          dispatch({
+            type: search_types.SEARCH_SUCCESS,
+            searchResults: results,
+          })
+        }
       } catch (error) {
         dispatch({ type: search_types.SEARCH_FAILURE })
         return error
@@ -31,7 +39,6 @@ const SearchBox = ({ dispatch }) => {
           className={Styles.searchBox}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyUp={(e) => setQuery(e.target.value)}
           type="text"
           placeholder="Search species..."
         />

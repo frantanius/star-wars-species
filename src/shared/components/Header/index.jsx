@@ -1,18 +1,29 @@
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import logo from 'shared/assets/img/logo.png'
-import Styles from './styles.module.scss'
+import useParallax from 'shared/customHook/useParallax'
+import styles from './styles.module.scss'
 
-const Header = ({ children }) => {
+const Header = ({ children, theme }) => {
+  const transform = useParallax()
+  const cx = classNames({
+    [styles.header]: theme === 'primary',
+    [styles.headerCustom]: theme === 'secondary',
+  })
   return (
-    <div className={Styles.headerContainer}>
+    <div className={cx} style={{ transform: transform }}>
       <img src={logo} alt="logo" />
       {children}
     </div>
   )
 }
 
+Header.defaultProps = {
+  theme: 'primary',
+}
+
 Header.propTypes = {
-  // title: PropTypes.string,
+  theme: PropTypes.oneOf(['primary', 'secondary']),
   children: PropTypes.element,
 }
 

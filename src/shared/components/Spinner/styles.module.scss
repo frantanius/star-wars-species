@@ -1,18 +1,9 @@
-.spinnerContainer {
-    position: relative;
+.backdrop {
+    color: #ffffff;
+    z-index: 10;
 }
 
-.spinnerBottom {
-    color: grey;
-}
-
-.spinnerTop {
-    color: '#1a90ff';
-    animation-duration: 550ms;
-    position: 'absolute';
-    left: 0l
-}
-
-.spinnerCircle {
-    stroke-linecap: 'round';
+.backdropIcon { 
+    color: #020e18 !important; 
+    z-index: 10;
 }

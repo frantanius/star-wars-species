@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
+import { findNWord } from 'shared/utils'
 import {
   Grid,
   Card,
@@ -10,20 +11,18 @@ import {
 } from '@material-ui/core'
 import Styles from './styles.module.scss'
 
-const SpeciesCard = ({ name, classification }) => {
+const SpeciesCard = ({ name, classification, url }) => {
   const history = useHistory()
-  const handlePage = () => {
-    history.push(name)
-  }
+  const urlId = findNWord(url)
   return (
     <Grid item xs={3}>
-      <Card onClick={handlePage} className={Styles.card}>
+      <Card onClick={() => history.push(urlId)} className={Styles.card}>
         <CardActionArea>
           <CardMedia
             component="img"
             alt={classification}
             height="400"
-            image={`${process.env.PUBLIC_URL}/img/${name}.jpg`}
+            image={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
             title={name}
           />
           <CardContent className={Styles.cardContent}>

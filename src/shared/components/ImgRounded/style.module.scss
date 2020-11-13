@@ -1,0 +1,22 @@
+.imgRounded {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, -50%, 0);
+    margin: 0 auto;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.imgGallery {
+    img {
+        border-radius: 6px;
+        width: 100%;
+    }
+}

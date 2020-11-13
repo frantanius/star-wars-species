@@ -4,7 +4,7 @@ import { INIT_STATE_SEARCH, searchReducer } from 'shared/reducers/search'
 import { species_types } from 'shared/constants'
 import axios from 'axios'
 import Header from 'shared/components/Header'
-import Layout from 'shared/components/Layout'
+import Container from 'shared/components/Container'
 import SearchBox from 'shared/components/SearchBox'
 import SpeciesCard from 'shared/components/SpeciesCard'
 import Grid from '@material-ui/core/Grid'
@@ -21,7 +21,7 @@ const Species = () => {
     INIT_STATE_SEARCH,
   )
   const { isLoading, isError, payload } = state
-  const { isLoadingSearch, searchResults } = stateSearch
+  const { isLoadingSearch, isErrorSearch, searchResults } = stateSearch
 
   useEffect(() => {
     if (nextPage === 0 || isError) return
@@ -39,23 +39,29 @@ const Species = () => {
     })()
   }, [isError, nextPage, dispatch])
 
-  const data = searchResults.length ? searchResults : payload
-  const isDataLoading = isLoadingSearch ? isLoadingSearch : isLoading
+  const data = isErrorSearch
+    ? []
+    : !searchResults.length
+    ? payload
+    : searchResults
 
+  const isDataLoading = isLoadingSearch ? isLoadingSearch : isLoading
+  console.log('searchResults', stateSearch)
+  console.log('state species', state)
   return (
     <>
-      <Header title="STAR WARS">
+      <Header>
         <SearchBox dispatch={dispatchSearch} />
       </Header>
       <div id="back-to-top-anchor" />
-      <Layout>
+      <Container>
         <Grid container spacing={3}>
           {data.map((item, key) => (
             <SpeciesCard key={key} {...item} />
           ))}
         </Grid>
-        {isDataLoading && <Spinner />}
-      </Layout>
+        <Spinner isOpen={isDataLoading} />
+      </Container>
       <BackToTop />
       <div ref={loadMoreRef} />
     </>
