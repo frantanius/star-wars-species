@@ -27,7 +27,7 @@ const SpeciesCard = ({ name, classification, url }) => {
           <Typography gutterBottom component="h6">
             {name}
           </Typography>
-          <Typography component="p">Classification {classification}</Typography>
+          <Typography component="p">{classification}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>

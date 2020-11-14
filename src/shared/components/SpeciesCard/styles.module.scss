@@ -6,7 +6,7 @@
 
     &:hover {
         cursor: pointer;
-        transform: scale(1.1)
+        transform: scale(0.9)
     }
 
     &:after {
@@ -31,15 +31,16 @@
     h6 {
         color: #ffffff;
         font-size: 1.25rem;
-        font-weight: bold;
+        font-weight: 500;
         line-height: 1.2;
+        letter-spacing: 2px;
     }
 
     p {
         color: rgba(255, 255, 255, 0.92);
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: 200;
         line-height: 1.4;
-        letter-spacing: 1px;
+        text-transform: capitalize;
     }
 }
