@@ -6,12 +6,17 @@
     position: relative;
     background-position: center center;
     background-size: cover;
-    margin: 0;
+    margin-bottom: 3rem;
     padding: 1rem 0 0 0;
     border: 0;
     display: flex;
-    align-items: baseline;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    @media only screen and (max-width: 37.5em) {  
+        height: 345px;
+    }
 
     &:before {
         background: rgba(0, 0, 0, 0.5);

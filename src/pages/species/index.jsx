@@ -1,16 +1,19 @@
-import React, { useEffect, useReducer, useRef } from 'react'
+import { useEffect, useReducer, useRef } from 'react'
 import { INIT_STATE_SPECIES, speciesReducer } from 'shared/reducers/species'
 import { INIT_STATE_SEARCH, searchReducer } from 'shared/reducers/search'
 import { species_types } from 'shared/constants'
 import axios from 'axios'
+import useInfiniteScroll from 'shared/customHook/useInfiniteScroll'
+//Component
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'
+import GridContainer from 'shared/components/Grid/GridContainer'
+import GridItem from 'shared/components/Grid/GridItem'
 import SearchBox from 'shared/components/SearchBox'
 import SpeciesCard from 'shared/components/SpeciesCard'
-import Grid from '@material-ui/core/Grid'
 import BackToTop from 'shared/components/BackToTop'
 import Spinner from 'shared/components/Spinner'
-import useInfiniteScroll from 'shared/customHook/useInfiniteScroll'
+import Footer from 'shared/components/Footer'
 
 const Species = () => {
   const loadMoreRef = useRef(null)
@@ -46,8 +49,8 @@ const Species = () => {
     : searchResults
 
   const isDataLoading = isLoadingSearch ? isLoadingSearch : isLoading
-  console.log('searchResults', stateSearch)
-  console.log('state species', state)
+  // console.log('searchResults', stateSearch)
+  // console.log('state species', state)
   return (
     <>
       <Header>
@@ -55,14 +58,17 @@ const Species = () => {
       </Header>
       <div id="back-to-top-anchor" />
       <Container>
-        <Grid container spacing={3}>
+        <GridContainer spacing={1}>
           {data.map((item, key) => (
-            <SpeciesCard key={key} {...item} />
+            <GridItem key={key} xs={12} sm={4} md={3} spacing={3}>
+              <SpeciesCard {...item} />
+            </GridItem>
           ))}
-        </Grid>
+        </GridContainer>
         <Spinner isOpen={isDataLoading} />
       </Container>
       <BackToTop />
+      <Footer />
       <div ref={loadMoreRef} />
     </>
   )

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { findNWord } from 'shared/utils'
 import {
-  Grid,
   Card,
   CardActionArea,
   CardMedia,
@@ -15,27 +14,23 @@ const SpeciesCard = ({ name, classification, url }) => {
   const history = useHistory()
   const urlId = findNWord(url)
   return (
-    <Grid item xs={3}>
-      <Card onClick={() => history.push(urlId)} className={Styles.card}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt={classification}
-            height="400"
-            image={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
-            title={name}
-          />
-          <CardContent className={Styles.cardContent}>
-            <Typography gutterBottom component="h6">
-              {name}
-            </Typography>
-            <Typography component="p">
-              Classification {classification}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Grid>
+    <Card onClick={() => history.push(urlId)} className={Styles.card}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          alt={classification}
+          height="400"
+          image={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
+          title={name}
+        />
+        <CardContent className={Styles.cardContent}>
+          <Typography gutterBottom component="h6">
+            {name}
+          </Typography>
+          <Typography component="p">Classification {classification}</Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
 

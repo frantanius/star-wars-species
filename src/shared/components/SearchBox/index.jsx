@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { search_types } from 'shared/constants'
-import { Grid, InputBase } from '@material-ui/core'
+import { InputBase } from '@material-ui/core'
+// import Container from 'shared/components/Container'
+import GridContainer from 'shared/components/Grid/GridContainer'
+import GridItem from 'shared/components/Grid/GridItem'
 import Styles from './styles.module.scss'
 
 const SearchBox = ({ dispatch }) => {
@@ -33,17 +36,19 @@ const SearchBox = ({ dispatch }) => {
   }, [query, dispatch])
 
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item xs={5}>
-        <InputBase
-          className={Styles.searchBox}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          type="text"
-          placeholder="Search species..."
-        />
-      </Grid>
-    </Grid>
+    <GridContainer justify="center">
+      <GridItem xs={10} sm={8} md={6}>
+        <div style={{ paddingTop: '2rem' }}>
+          <InputBase
+            className={Styles.searchBox}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            placeholder="Search species..."
+          />
+        </div>
+      </GridItem>
+    </GridContainer>
   )
 }
 

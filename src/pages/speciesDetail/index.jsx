@@ -3,13 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { findNWord } from 'shared/utils'
 // Material UI component
-import {
-  GridList,
-  GridListTile,
-  List,
-  ListItem,
-  ListItemText,
-} from '@material-ui/core'
+import { List, ListItem, ListItemText } from '@material-ui/core'
 import { MovieCreation, RecentActors, Info } from '@material-ui/icons'
 // Component
 import Title from 'shared/components/Title'
@@ -84,8 +78,8 @@ const SpeciesDetail = () => {
                     tabButton: 'Information',
                     tabIcon: Info,
                     tabContent: (
-                      <GridContainer justify="center">
-                        <GridItem xs={12} sm={12} md={4}>
+                      <GridContainer spacing={1} justify="center">
+                        <GridItem xs={6} sm={4} md={4} spacing={3}>
                           <List>
                             <ListItem>
                               <ListItemText
@@ -113,7 +107,7 @@ const SpeciesDetail = () => {
                             </ListItem>
                           </List>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
+                        <GridItem xs={6} sm={4} md={4} spacing={3}>
                           <List>
                             <ListItem>
                               <ListItemText
@@ -148,21 +142,25 @@ const SpeciesDetail = () => {
                     tabButton: 'Films',
                     tabIcon: MovieCreation,
                     tabContent: (
-                      <GridContainer justify="center">
-                        <GridList cols={4} cellHeight="auto" spacing="8">
-                          {films &&
-                            films.map((val, key) => {
-                              let filmId = findNWord(val)
-                              return (
-                                <GridListTile key={key} cols={1}>
-                                  <ImgRounded
-                                    src={`${process.env.PUBLIC_URL}/img/films/${filmId}.jpg`}
-                                    type="gallery"
-                                  />
-                                </GridListTile>
-                              )
-                            })}
-                        </GridList>
+                      <GridContainer spacing={1}>
+                        {films &&
+                          films.map((val, key) => {
+                            let filmId = findNWord(val)
+                            return (
+                              <GridItem
+                                key={key}
+                                xs={6}
+                                sm={4}
+                                md={3}
+                                spacing={3}
+                              >
+                                <ImgRounded
+                                  src={`${process.env.PUBLIC_URL}/img/films/${filmId}.jpg`}
+                                  type="gallery"
+                                />
+                              </GridItem>
+                            )
+                          })}
                       </GridContainer>
                     ),
                   },
@@ -170,21 +168,25 @@ const SpeciesDetail = () => {
                     tabButton: 'Characters',
                     tabIcon: RecentActors,
                     tabContent: (
-                      <GridContainer justify="center">
-                        <GridList cols={4} cellHeight="auto" spacing="8">
-                          {people &&
-                            people.map((val, key) => {
-                              let peopleId = findNWord(val)
-                              return (
-                                <GridListTile key={key} cols={1}>
-                                  <ImgRounded
-                                    src={`${process.env.PUBLIC_URL}/img/characters/${peopleId}.jpg`}
-                                    type="gallery"
-                                  />
-                                </GridListTile>
-                              )
-                            })}
-                        </GridList>
+                      <GridContainer spacing={1}>
+                        {people &&
+                          people.map((val, key) => {
+                            let peopleId = findNWord(val)
+                            return (
+                              <GridItem
+                                key={key}
+                                xs={6}
+                                sm={4}
+                                md={3}
+                                spacing={3}
+                              >
+                                <ImgRounded
+                                  src={`${process.env.PUBLIC_URL}/img/characters/${peopleId}.jpg`}
+                                  type="gallery"
+                                />
+                              </GridItem>
+                            )
+                          })}
                       </GridContainer>
                     ),
                   },
