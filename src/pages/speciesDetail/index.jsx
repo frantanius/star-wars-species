@@ -79,7 +79,7 @@ const SpeciesDetail = () => {
                     tabIcon: Info,
                     tabContent: (
                       <GridContainer spacing={1} justify="center">
-                        <GridItem xs={6} sm={4} md={4} spacing={3}>
+                        <GridItem xs={6} sm={4} md={4}>
                           <List>
                             <ListItem>
                               <ListItemText
@@ -107,7 +107,7 @@ const SpeciesDetail = () => {
                             </ListItem>
                           </List>
                         </GridItem>
-                        <GridItem xs={6} sm={4} md={4} spacing={3}>
+                        <GridItem xs={6} sm={4} md={4}>
                           <List>
                             <ListItem>
                               <ListItemText
@@ -147,13 +147,7 @@ const SpeciesDetail = () => {
                           films.map((val, key) => {
                             let filmId = findNWord(val)
                             return (
-                              <GridItem
-                                key={key}
-                                xs={6}
-                                sm={4}
-                                md={3}
-                                spacing={3}
-                              >
+                              <GridItem key={key} xs={6} sm={4} md={3}>
                                 <ImgRounded
                                   src={`${process.env.PUBLIC_URL}/img/films/${filmId}.jpg`}
                                   type="gallery"
@@ -173,13 +167,7 @@ const SpeciesDetail = () => {
                           people.map((val, key) => {
                             let peopleId = findNWord(val)
                             return (
-                              <GridItem
-                                key={key}
-                                xs={6}
-                                sm={4}
-                                md={3}
-                                spacing={3}
-                              >
+                              <GridItem key={key} xs={6} sm={4} md={3}>
                                 <ImgRounded
                                   src={`${process.env.PUBLIC_URL}/img/characters/${peopleId}.jpg`}
                                   type="gallery"

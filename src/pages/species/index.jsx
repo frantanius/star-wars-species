@@ -54,7 +54,7 @@ const Species = () => {
       <Container>
         <GridContainer spacing={1}>
           {data.map((item, key) => (
-            <GridItem key={key} xs={12} sm={4} md={3} spacing={3}>
+            <GridItem key={key} xs={12} sm={4} md={3}>
               <SpeciesCard {...item} />
             </GridItem>
           ))}
