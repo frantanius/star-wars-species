@@ -19,14 +19,10 @@ const SearchBox = ({ dispatch }) => {
           data: { results },
         } = await axios.get(`${process.env.REACT_APP_API_URL}?search=${query}`)
 
-        if (!results.length) {
-          dispatch({ type: search_types.SEARCH_FAILURE })
-        } else {
-          dispatch({
-            type: search_types.SEARCH_SUCCESS,
-            searchResults: results,
-          })
-        }
+        dispatch({
+          type: search_types.SEARCH_SUCCESS,
+          searchResults: results,
+        })
       } catch (error) {
         dispatch({ type: search_types.SEARCH_FAILURE })
         return error

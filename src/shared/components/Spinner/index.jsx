@@ -1,16 +1,28 @@
-/* eslint-disable no-unused-vars */
-import PropTypes from 'prop-types'
-import { Backdrop, CircularProgress } from '@material-ui/core'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import styles from './styles.module.scss'
 
-const Spinner = ({ isOpen }) => (
-  <Backdrop className={styles.backdrop} open={isOpen}>
-    <CircularProgress className={styles.backdropIcon} />
-  </Backdrop>
+const Spinner = () => (
+  <div className={styles.spinnerContainer}>
+    <div className={styles.spinner}>
+      <CircularProgress
+        variant="determinate"
+        className={styles.spinnerBottom}
+        size={40}
+        thickness={4}
+        value={100}
+      />
+      <CircularProgress
+        variant="indeterminate"
+        disableShrink
+        className={styles.spinnerTop}
+        classes={{
+          circle: styles.spinnerCircle,
+        }}
+        size={40}
+        thickness={4}
+      />
+    </div>
+  </div>
 )
-
-Spinner.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-}
 
 export default Spinner

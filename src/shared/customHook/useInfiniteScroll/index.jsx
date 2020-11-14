@@ -1,28 +1,26 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 
 const useInfiniteScroll = (refProps) => {
   const [pages, setPages] = useState(0)
 
-  const loadMoreCallback = useCallback(
-    (entries) => {
-      const target = entries[0]
-      if (target.isIntersecting) {
-        setPages((prevPage) => prevPage + 1)
-      }
-    },
-    [setPages],
-  )
-
   useEffect(() => {
-    const observer = new IntersectionObserver(loadMoreCallback, {
+    const options = {
       root: null,
-      threshold: 0.25,
-    })
+      threshold: 1.0,
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setPages((prevPage) => prevPage + 1)
+        }
+      })
+    }, options)
 
     if (refProps && refProps.current) {
       observer.observe(refProps.current)
     }
-  }, [refProps, loadMoreCallback])
+  }, [refProps, setPages])
 
   return pages
 }

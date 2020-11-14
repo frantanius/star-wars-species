@@ -1,24 +1,33 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
-const useInfiniteScroll = (refProps, dispatch) => {
-  const observer = useCallback(
-    (node) => {
-      new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.intersectionRatio > 0) {
-            dispatch({ type: 'ADVANCE_PAGE' })
+const useLazyLoading = (imgSelector, items) => {
+  const imgObserver = useCallback((node) => {
+    const intObs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          const currentImg = en.target
+          const newImgSrc = currentImg.dataset.src
+
+          if (!newImgSrc) {
+            console.error('Image source is invalid')
+          } else {
+            currentImg.src = newImgSrc
           }
-        })
-      }).observe(node)
-    },
-    [dispatch],
-  )
+          intObs.unobserve(node)
+        }
+      })
+    })
+    intObs.observe(node)
+  }, [])
 
+  const imagesRef = useRef(null)
+  console.log('imgObserver', imgObserver)
   useEffect(() => {
-    if (refProps.current) {
-      observer(refProps.current)
+    imagesRef.current = document.querySelectorAll(imgSelector)
+    if (imagesRef.current) {
+      imagesRef.current.forEach((img) => imgObserver(img))
     }
-  }, [observer, refProps])
+  }, [imgObserver, imagesRef, imgSelector, items])
 }
 
-export default useInfiniteScroll
+export default useLazyLoading

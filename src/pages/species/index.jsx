@@ -23,8 +23,8 @@ const Species = () => {
     searchReducer,
     INIT_STATE_SEARCH,
   )
-  const { isLoading, isError, payload } = state
-  const { isLoadingSearch, isErrorSearch, searchResults } = stateSearch
+  const { isError, payload, isLoading } = state
+  const { searchResults, isLoadingSearch } = stateSearch
 
   useEffect(() => {
     if (nextPage === 0 || isError) return
@@ -42,15 +42,9 @@ const Species = () => {
     })()
   }, [isError, nextPage, dispatch])
 
-  const data = isErrorSearch
-    ? []
-    : !searchResults.length
-    ? payload
-    : searchResults
+  const data = !searchResults.length ? payload : searchResults
+  const isDataLoading = isLoading || isLoadingSearch
 
-  const isDataLoading = isLoadingSearch ? isLoadingSearch : isLoading
-  // console.log('searchResults', stateSearch)
-  // console.log('state species', state)
   return (
     <>
       <Header>
@@ -65,11 +59,11 @@ const Species = () => {
             </GridItem>
           ))}
         </GridContainer>
-        <Spinner isOpen={isDataLoading} />
+        {isDataLoading && <Spinner />}
       </Container>
       <BackToTop />
+      <div id="loadMore" ref={loadMoreRef} />
       <Footer />
-      <div ref={loadMoreRef} />
     </>
   )
 }

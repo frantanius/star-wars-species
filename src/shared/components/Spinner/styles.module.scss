@@ -1,9 +1,27 @@
-.backdrop {
-    color: #ffffff;
-    z-index: 10;
+.spinnerContainer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    z-index: 2;
 }
 
-.backdropIcon { 
-    color: #020e18 !important; 
-    z-index: 10;
+.spinner {
+    position: relative;
+}
+
+.spinnerTop {
+    color: #020e18 !important;
+    animation-duration: 550ms;
+    position: absolute;
+    left: 0;
+}
+
+.spinnerBottom {
+    color: #eeeeee !important;
+}
+
+.spinnerCircle {
+    stroke-linecap: round;
 }

@@ -19,8 +19,7 @@ const SpeciesCard = ({ name, classification, url }) => {
         <CardMedia
           component="img"
           alt={classification}
-          height="400"
-          image={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
+          src={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
           title={name}
         />
         <CardContent className={Styles.cardContent}>
