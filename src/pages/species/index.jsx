@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { requestSpecies } from 'shared/actions/species'
 import { listSpecies } from 'shared/reducers/species'
-import { useInfiniteScroll, useEffectAfterMount } from 'shared/customHooks'
+import { useInfiniteScroll } from 'shared/customHooks'
 //Component
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'

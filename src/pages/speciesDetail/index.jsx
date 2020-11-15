@@ -16,7 +16,7 @@ import Tabs from 'shared/components/Tabs'
 import Footer from 'shared/components/Footer'
 
 const SpeciesDetail = () => {
-  const { isLoading, payload } = useSelector(speciesDetail)
+  const { payload } = useSelector(speciesDetail)
   const {
     name,
     average_height,
@@ -46,7 +46,6 @@ const SpeciesDetail = () => {
               />
               <Title
                 name={name}
-                isLoading={isLoading}
                 marginTop={-3}
                 marginBottom={2}
                 align="center"
