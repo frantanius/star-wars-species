@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios'
 import { getBaseUrl } from 'shared/utils'
 import { takeLatest, call, put, all } from 'redux-saga/effects'

@@ -1,43 +1,28 @@
-import axios from 'axios'
-import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { searchRequest } from 'shared/actions/search'
 import { InputBase } from '@material-ui/core'
-import { search_types } from 'shared/constants'
 import GridContainer from 'shared/components/Grid/GridContainer'
 import GridItem from 'shared/components/Grid/GridItem'
-import Styles from './styles.module.scss'
+import styles from './styles.module.scss'
 
-const SearchBox = ({ dispatch }) => {
+const SearchBox = () => {
+  const dispatch = useDispatch()
   const [query, setQuery] = useState('')
 
-  useEffect(() => {
-    if (!query) return
-    ;(async () => {
-      dispatch({ type: search_types.SEARCH_REQUEST })
-      try {
-        const {
-          data: { results },
-        } = await axios.get(`${process.env.REACT_APP_API_URL}?search=${query}`)
-
-        dispatch({
-          type: search_types.SEARCH_SUCCESS,
-          searchResults: results,
-        })
-      } catch (error) {
-        dispatch({ type: search_types.SEARCH_FAILURE })
-        return error
-      }
-    })()
-  }, [query, dispatch])
+  const handleSearch = (e) => {
+    setQuery(e.target.value)
+    dispatch(searchRequest(e.target.value))
+  }
 
   return (
     <GridContainer justify="center">
       <GridItem xs={10} sm={8} md={6}>
         <div style={{ paddingTop: '2rem' }}>
           <InputBase
-            className={Styles.searchBox}
+            className={styles.searchBox}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleSearch}
             type="text"
             placeholder="Search species..."
           />
@@ -45,10 +30,6 @@ const SearchBox = ({ dispatch }) => {
       </GridItem>
     </GridContainer>
   )
-}
-
-SearchBox.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 }
 
 export default SearchBox

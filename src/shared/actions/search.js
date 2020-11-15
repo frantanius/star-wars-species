@@ -1,17 +1,18 @@
-import { species_types } from 'shared/constants'
+import { search_types } from 'shared/constants'
 
-const requestSearchSpecies = () => ({
-  type: species_types.SEARCH_REQUEST,
+const searchRequest = (query) => ({
+  type: search_types.SEARCH_REQUEST,
+  query,
 })
 
-const searchSpeciesSucces = (payload) => ({
-  type: species_types.SEARCH_SUCCESS,
+const searchSucces = (payload) => ({
+  type: search_types.SEARCH_SUCCESS,
   payload,
 })
 
-const searchSpeciesFailure = (error) => ({
-  type: species_types.SEARCH_FAILURE,
+const searchFailure = (error) => ({
+  type: search_types.SEARCH_FAILURE,
   error,
 })
 
-export { requestSearchSpecies, searchSpeciesSucces, searchSpeciesFailure }
+export { searchRequest, searchSucces, searchFailure }

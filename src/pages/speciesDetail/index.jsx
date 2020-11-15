@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import { speciesDetail } from 'shared/reducers/speciesDetail'
-
 import { findNWord } from 'shared/utils'
 // Material UI component
 import { List, ListItem, ListItemText } from '@material-ui/core'
