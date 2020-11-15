@@ -1,7 +1,8 @@
 import { species_types } from 'shared/constants'
 
-const requestSpecies = () => ({
+const requestSpecies = (page) => ({
   type: species_types.SPECIES_REQUEST,
+  page,
 })
 
 const requestSpeciesSucces = (payload) => ({

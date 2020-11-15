@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect'
 import { species_types } from 'shared/constants'
 
 const INITIAL_STATE = {
@@ -6,8 +7,8 @@ const INITIAL_STATE = {
   payload: [],
 }
 
-const speciesReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const speciesReducer = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
     case species_types.SPECIES_REQUEST:
       return {
         ...state,
@@ -19,7 +20,7 @@ const speciesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        payload: state.payload.concat(action.payload),
+        payload: state.payload.concat(payload),
       }
     case species_types.SPECIES_FAILURE:
       return {
@@ -32,4 +33,7 @@ const speciesReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export default speciesReducer
+const selectSpecies = (state) => state.species
+const listSpecies = createSelector([selectSpecies], (species) => species)
+
+export { speciesReducer, listSpecies }

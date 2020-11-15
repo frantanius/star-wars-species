@@ -3,4 +3,6 @@ const findNWord = (n) => {
   return n.match(/(\d+)/)[1]
 }
 
-export { findNWord }
+const getBaseUrl = () => `${process.env.REACT_APP_API_URL}`
+
+export { findNWord, getBaseUrl }

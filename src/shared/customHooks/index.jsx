@@ -4,6 +4,7 @@ const useInfiniteScroll = (refProps) => {
   const [pages, setPages] = useState(0)
 
   useEffect(() => {
+    console.log('load infinite scroll ...')
     const options = {
       root: null,
       threshold: 1.0,

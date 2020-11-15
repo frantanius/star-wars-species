@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getBaseUrl } from 'shared/utils'
 import { takeLatest, call, put, all } from 'redux-saga/effects'
 import {
   requestSpeciesSucces,
@@ -6,11 +7,15 @@ import {
 } from 'shared/actions/species'
 import { species_types } from 'shared/constants'
 
-function* fetchSpecies(page = 1) {
+function* fetchSpecies({ page }) {
+  if (page === 0) return
+
   try {
+    const server = yield call(getBaseUrl)
+    const url = `${server}?page=${page}`
     const {
       data: { results },
-    } = yield call(axios.get(`${process.env.REACT_APP_API_URL}?page=${page}`))
+    } = yield call(axios, { url, method: 'GET' })
 
     yield put(requestSpeciesSucces(results))
   } catch (error) {

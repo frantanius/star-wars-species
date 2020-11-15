@@ -32,4 +32,4 @@ const searchReducer = (state = INITIAL_STATE, action) => {
   }
 }
 
-export default searchReducer
+export { searchReducer }
