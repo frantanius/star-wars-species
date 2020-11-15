@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { requestSpecies } from 'shared/actions/species'
 import { listSpecies } from 'shared/reducers/species'
-import { useInfiniteScroll } from 'shared/customHooks'
+import { useInfiniteScroll, useEffectAfterMount } from 'shared/customHooks'
 //Component
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'
@@ -20,7 +20,7 @@ const Species = () => {
   let loadMoreRef = useRef(null)
   const page = useInfiniteScroll(loadMoreRef)
 
-  useEffect(() => {
+  useEffectAfterMount(() => {
     if (!isError) {
       dispatch(requestSpecies(page))
     }
