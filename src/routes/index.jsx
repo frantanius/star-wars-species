@@ -15,6 +15,7 @@ const routes = [
   {
     title: 'Species detail',
     path: '/:speciesName',
+    exact: true,
     component: SpeciesDetail,
   },
   {
