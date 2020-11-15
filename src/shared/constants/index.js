@@ -4,10 +4,16 @@ const species_types = {
   SPECIES_FAILURE: 'SPECIES_FAILURE',
 }
 
+const species_detail_types = {
+  SPECIES_DETAIL_REQUEST: 'SPECIES_DETAIL_REQUEST',
+  SPECIES_DETAIL_SUCCESS: 'SPECIES_DETAIL_SUCCESS',
+  SPECIES_DETAIL_FAILURE: 'SPECIES_DETAIL_FAILURE',
+}
+
 const search_types = {
   SEARCH_REQUEST: 'SEARCH_REQUEST',
   SEARCH_SUCCESS: 'SEARCH_SUCCESS',
   SEARCH_FAILURE: 'SEARCH_FAILURE',
 }
 
-export { species_types, search_types }
+export { species_types, species_detail_types, search_types }

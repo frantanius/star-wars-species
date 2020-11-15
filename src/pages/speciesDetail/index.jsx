@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import axios from 'axios'
-import { useState, useEffect, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { speciesDetail } from 'shared/reducers/speciesDetail'
+
 import { findNWord } from 'shared/utils'
 // Material UI component
 import { List, ListItem, ListItemText } from '@material-ui/core'
@@ -18,9 +17,7 @@ import Tabs from 'shared/components/Tabs'
 import Footer from 'shared/components/Footer'
 
 const SpeciesDetail = () => {
-  const { speciesId } = useParams()
-  const [species, setSpecies] = useState({})
-  const [isLoading, setLoading] = useState(false)
+  const { isLoading, payload } = useSelector(speciesDetail)
   const {
     name,
     average_height,
@@ -34,26 +31,8 @@ const SpeciesDetail = () => {
     url,
     people,
     films,
-  } = species
+  } = payload
   const imgId = findNWord(url)
-
-  const getSpecies = useCallback(async () => {
-    setLoading(true)
-    try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL}${speciesId}`,
-      )
-      setSpecies(data)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      return error
-    }
-  }, [speciesId])
-
-  useEffect(() => {
-    getSpecies()
-  }, [getSpecies])
 
   return (
     <>

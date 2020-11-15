@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
 import RouteProgress from 'shared/components/RouteProgress'
 const Species = loadable(() => import('pages/Species'))
@@ -14,7 +14,7 @@ const routes = [
   },
   {
     title: 'Species detail',
-    path: '/:speciesId',
+    path: '/:speciesName',
     component: SpeciesDetail,
   },
   {
@@ -26,13 +26,11 @@ const routes = [
 
 const Routes = () => {
   return (
-    <Router>
-      <Switch>
-        {routes.map((r, i) => (
-          <RouteProgress key={i} {...r} />
-        ))}
-      </Switch>
-    </Router>
+    <Switch>
+      {routes.map((r, i) => (
+        <RouteProgress key={i} {...r} />
+      ))}
+    </Switch>
   )
 }
 

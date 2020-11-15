@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { requestSpeciesDetail } from 'shared/actions/speciesDetail'
 import { findNWord } from 'shared/utils'
 import {
   Card,
@@ -11,15 +12,20 @@ import {
 import Styles from './styles.module.scss'
 
 const SpeciesCard = ({ name, classification, url }) => {
-  const history = useHistory()
-  const urlId = findNWord(url)
+  const dispatch = useDispatch()
+  const idSpecies = findNWord(url)
+
+  const handleClick = () => {
+    dispatch(requestSpeciesDetail(idSpecies))
+  }
+
   return (
-    <Card onClick={() => history.push(urlId)} className={Styles.card}>
+    <Card onClick={handleClick} className={Styles.card}>
       <CardActionArea>
         <CardMedia
           component="img"
           alt={classification}
-          src={`${process.env.PUBLIC_URL}/img/species/${urlId}.jpg`}
+          src={`${process.env.PUBLIC_URL}/img/species/${idSpecies}.jpg`}
           title={name}
         />
         <CardContent className={Styles.cardContent}>
