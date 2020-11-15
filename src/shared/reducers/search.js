@@ -1,13 +1,13 @@
 import { search_types } from 'shared/constants'
 
-const INIT_STATE_SEARCH = {
+const INITIAL_STATE = {
   isLoadingSearch: false,
   isErrorSearch: false,
   searchResults: [],
 }
 
-const searchReducer = (state, { type, searchResults }) => {
-  switch (type) {
+const searchReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
     case search_types.SEARCH_REQUEST:
       return {
         ...state,
@@ -19,7 +19,7 @@ const searchReducer = (state, { type, searchResults }) => {
         ...state,
         isLoadingSearch: false,
         isErrorSearch: false,
-        searchResults,
+        searchResults: action.searchResults,
       }
     case search_types.SEARCH_FAILURE:
       return {
@@ -32,4 +32,4 @@ const searchReducer = (state, { type, searchResults }) => {
   }
 }
 
-export { INIT_STATE_SEARCH, searchReducer }
+export default searchReducer

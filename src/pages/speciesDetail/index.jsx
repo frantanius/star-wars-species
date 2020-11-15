@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { findNWord } from 'shared/utils'
 // Material UI component
@@ -36,21 +37,23 @@ const SpeciesDetail = () => {
   } = species
   const imgId = findNWord(url)
 
-  useEffect(() => {
-    ;(async () => {
-      setLoading(true)
-      try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_API_URL}${speciesId}`,
-        )
-        setSpecies(data)
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-        return error
-      }
-    })()
+  const getSpecies = useCallback(async () => {
+    setLoading(true)
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}${speciesId}`,
+      )
+      setSpecies(data)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      return error
+    }
   }, [speciesId])
+
+  useEffect(() => {
+    getSpecies()
+  }, [getSpecies])
 
   return (
     <>

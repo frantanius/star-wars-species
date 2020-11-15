@@ -1,13 +1,13 @@
 import { species_types } from 'shared/constants'
 
-const INIT_STATE_SPECIES = {
+const INITIAL_STATE = {
   isLoading: false,
   isError: false,
   payload: [],
 }
 
-const speciesReducer = (state, { type, payload }) => {
-  switch (type) {
+const speciesReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
     case species_types.SPECIES_REQUEST:
       return {
         ...state,
@@ -19,7 +19,7 @@ const speciesReducer = (state, { type, payload }) => {
         ...state,
         isLoading: false,
         isError: false,
-        payload: state.payload.concat(payload),
+        payload: state.payload.concat(action.payload),
       }
     case species_types.SPECIES_FAILURE:
       return {
@@ -32,4 +32,4 @@ const speciesReducer = (state, { type, payload }) => {
   }
 }
 
-export { INIT_STATE_SPECIES, speciesReducer }
+export default speciesReducer
