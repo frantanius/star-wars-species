@@ -10,7 +10,7 @@ import { species_types } from 'shared/constants'
 function* fetchSpecies({ page }) {
   try {
     const server = yield call(getBaseUrl)
-    const url = `${server}?page=${page}`
+    const url = `${server}/?page=${page}`
     const {
       data: { results },
     } = yield call(axios, { url, method: 'GET' })

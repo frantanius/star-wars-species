@@ -7,7 +7,7 @@ import { search_types } from 'shared/constants'
 function* searchSpecies({ query }) {
   try {
     const server = yield call(getBaseUrl)
-    const url = query ? `${server}?search=${query}` : `${server}`
+    const url = query ? `${server}/?search=${query}` : `${server}/`
     const {
       data: { results },
     } = yield call(axios, { url, method: 'GET' })
