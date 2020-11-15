@@ -8,8 +8,6 @@ import {
 import { species_types } from 'shared/constants'
 
 function* fetchSpecies({ page }) {
-  if (page === 0) return
-
   try {
     const server = yield call(getBaseUrl)
     const url = `${server}?page=${page}`

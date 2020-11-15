@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { requestSpecies } from 'shared/actions/species'
 import { listSpecies } from 'shared/reducers/species'
-import { useInfiniteScroll } from 'shared/customHooks'
+import { useInfiniteScroll, useEffectAfterMount } from 'shared/customHooks'
 //Component
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'
@@ -16,13 +17,15 @@ import Footer from 'shared/components/Footer'
 
 const Species = () => {
   const dispatch = useDispatch()
-  const { isLoading, payload } = useSelector(listSpecies)
-  const loadMoreRef = useRef(null)
+  const { isLoading, isError, payload } = useSelector(listSpecies)
+  let loadMoreRef = useRef(null)
   const page = useInfiniteScroll(loadMoreRef)
 
   useEffect(() => {
-    dispatch(requestSpecies(page))
-  }, [dispatch, page])
+    if (!isError) {
+      dispatch(requestSpecies(page))
+    }
+  }, [dispatch, page, isError])
 
   return (
     <>
