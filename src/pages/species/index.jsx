@@ -3,7 +3,7 @@ import { INIT_STATE_SPECIES, speciesReducer } from 'shared/reducers/species'
 import { INIT_STATE_SEARCH, searchReducer } from 'shared/reducers/search'
 import { species_types } from 'shared/constants'
 import axios from 'axios'
-import useInfiniteScroll from 'shared/customHook/useInfiniteScroll'
+import { useInfiniteScroll } from 'shared/customHooks'
 //Component
 import Header from 'shared/components/Header'
 import Container from 'shared/components/Container'

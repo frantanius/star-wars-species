@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import logo from 'shared/assets/img/logo.png'
-import useParallax from 'shared/customHook/useParallax'
+import { useParallax } from 'shared/customHooks'
 import styles from './styles.module.scss'
 
 const Header = ({ children, theme }) => {
