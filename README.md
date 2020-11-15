@@ -2,6 +2,14 @@
 
 Displays a list of star wars species using react js and material ui
 
+
+
+## DEMO
+
+[React-star-wars-species](https://star-wars-species.netlify.app)
+
+
+
 ## Installation
 
 Use the package manager [yarn](https://yarnpkg.com/getting-started/install) or [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install.
@@ -28,8 +36,13 @@ yarn lint:fix
 ```
 
 
-## Preview
-![ScreenShot](screenshot.png)
+
+## Technologies Used
+
+* [ReactJS](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Redux-Saga](https://redux-saga.js.org/)
+* [Material-UI](https://material-ui.com/)
 
 
 
